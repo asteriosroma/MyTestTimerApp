@@ -6,7 +6,29 @@
         xmlns:local="clr-namespace:MyTestTimerApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+            Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid DataContext="{Binding Path=Model}" Focusable="True">
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="188,68,0,0" TextWrapping="Wrap" Text="{Binding Path=Start_time_count, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120">
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="textBox"/>
+                        <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <TextBlock x:Name="textBlockNechet" HorizontalAlignment="Left" Margin="188,139,0,0" TextWrapping="Wrap" Text="{Binding Path=Nechet_time}" VerticalAlignment="Top" RenderTransformOrigin="-0.069,-0.547" Width="120" Height="23"/>
+        <TextBlock x:Name="textBlockChet" HorizontalAlignment="Left" Margin="188,193,0,0" TextWrapping="Wrap" Text="{Binding Path=Chet_time}" VerticalAlignment="Top" Width="120" Height="24"/>
     </Grid>
 </Window>

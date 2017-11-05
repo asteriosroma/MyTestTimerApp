@@ -20,9 +20,18 @@ namespace MyTestTimerApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        ViewModel view_model;
         public MainWindow()
         {
             InitializeComponent();
+
+            view_model = new ViewModel();
+
+            DataContext = view_model;
+
+            textBox.GotFocus += view_model.TextBox_GotFocus;
+            textBox.LostFocus += view_model.TextBox_LostFocus;
+            this.PreviewMouseDown += view_model.MainWindow_PreviewMouseDown;
         }
     }
 }
